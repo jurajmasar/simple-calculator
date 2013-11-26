@@ -7,11 +7,11 @@ Simple calculator with unlimited precision
 
 1. checkout the repository
 2. compile the CodEx class
-    javac CodEx.java
+`javac CodEx.java`
 3. run the CodEx.class
-    java CodEx
+`java CodEx`
 4. run "tests" with
-    javac CodEx.java && java CodEx < INPUT > CURRENT_OUTPUT && diff CURRENT_OUTPUT OUTPUT
+`javac CodEx.java && java CodEx < INPUT > CURRENT_OUTPUT && diff CURRENT_OUTPUT OUTPUT`
 
 Assignment: simple calculator with unlimited precision
 ------------------------------------------------------
@@ -24,19 +24,38 @@ If the expression does not correspond to the above rules, the program prints out
 
 Initially, the program computes with the precision set to 20 digits after the decimal point. The precision can be changed via the precision command.
 
-#### Examples:
+#### Examples
 
-3+2 ⇒5 2∗(3+3) ⇒12 (2−3∗(1+2)) ⇒−7 2∗3 ⇒6 last−3 ⇒3
-10 ∗ last
-1.2 + 4.3
-1/3
-1000000000 ∗ 1000000000 precision 30
-1/3 3∗∗5 last∗3
-⇒ 30
-⇒ 5.5
-⇒ 0.33333333333333333333 ⇒ 1000000000000000000
-⇒ 0.333333333333333333333333333333 ⇒ CHYBA
-⇒ 0
+#### Input
+
+    3 + 2
+    2 * ( 3 + 3 )
+    ( 2 - 3 * ( 1 + 2) )
+    2 * 3
+    last - 3
+    10 * last
+    1.2 + 4.3
+    1 / 3
+    1000000000 * 1000000000
+    precision 30
+    1 / 3
+    3 ** 5
+    last * 3
+
+#### Output
+
+    5
+    12
+    -7
+    6
+    3
+    30
+    5.5
+    0.33333333333333333333
+    1000000000000000000
+    0.333333333333333333333333333333
+    CHYBA
+    0
 
 ## License 
 
