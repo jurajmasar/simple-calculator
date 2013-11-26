@@ -17,7 +17,7 @@ public class CodEx {
     /** 
      * Rounding mode used for printing out the number.
      */
-    static final int ROUNDING_MODE = BigDecimal.ROUND_DOWN;
+    static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
     
     /**
      * Precision to be used in the next evaluation.
@@ -153,7 +153,7 @@ public class CodEx {
             
             try {
                 type = ExpressionType.VALUE;
-                value = new BigDecimal(sb.toString());
+                value = new BigDecimal(sb.toString()).setScale(precision, ROUNDING_MODE);
             } catch (NumberFormatException ex) {
                 throw new InvalidExpressionException();
             }
