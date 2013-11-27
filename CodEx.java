@@ -12,7 +12,7 @@ public class CodEx {
     /**
      * Result of the evaluation of the last expression.
      */
-    static BigDecimal last = new BigDecimal(0);
+    static BigDecimal last = BigDecimal.ZERO;
     
     /** 
      * Rounding mode used for printing out the number.
@@ -92,7 +92,7 @@ public class CodEx {
                 
                 if (isEnclosedInBrackets) {
                     // remove brackets                    
-                    sb.deleteCharAt(0).deleteCharAt(sb.length()-1);
+                    sb = new StringBuilder(sb.deleteCharAt(0).deleteCharAt(sb.length()-1).toString().trim());
                 }
             }
             
@@ -140,7 +140,7 @@ public class CodEx {
             // check for "last"
             //
             
-            if ("last".equals(sb.toString())) {
+            if ("last".equals(sb.toString().trim())) {
                type = ExpressionType.VALUE;
                value = last;
                
@@ -163,18 +163,25 @@ public class CodEx {
          * Return numeric value of the Expression tree with the root in the current node.
          */
         public BigDecimal getResult() {
+            BigDecimal result;
             switch (type) {
                 case ADDITION:
-                    return left.getResult().add(right.getResult());
+                    result = left.getResult().add(right.getResult());
+                    break;
                 case SUBTRACTION:
-                    return left.getResult().subtract(right.getResult());
+                    result = left.getResult().subtract(right.getResult());
+                    break;
                 case MULTIPLICATION:
-                    return left.getResult().multiply(right.getResult());
+                    result = left.getResult().multiply(right.getResult());
+                    break;
                 case DIVISION:
-                    return left.getResult().divide(right.getResult(), precision, ROUNDING_MODE);
+                    result = left.getResult().divide(right.getResult(), precision, ROUNDING_MODE);
+                    break;
                 default:
-                    return value;
+                    result = value;
             }
+
+            return result.setScale(precision, ROUNDING_MODE);
         }
     }
 
@@ -196,8 +203,12 @@ public class CodEx {
                     } else {
                         // handle arithmetic expression
                         last = new Expression(line).getResult().stripTrailingZeros();
-                        // do not use scientific notation e.g. "1E2"
-                        System.out.println(last.toPlainString());
+                        if (last.compareTo(BigDecimal.ZERO) == 0) {
+                            System.out.println(0);
+                        } else {
+                            // do not use scientific notation e.g. "1E2"
+                            System.out.println(last.toPlainString());                            
+                        }
                     }
                 } catch (InvalidExpressionException e) {
                     System.out.println("CHYBA");
